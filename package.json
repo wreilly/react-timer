@@ -4,7 +4,7 @@
   "description": "End of Weather App. Section 7",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "karma start",
     "start": "node server.js"
   },
   "keywords": [
@@ -27,8 +27,16 @@
     "babel-preset-react": "^6.11.1",
     "babel-preset-stage-0": "^6.5.0",
     "css-loader": "^0.23.1",
+    "expect": "^1.20.2",
     "foundation-sites": "^6.2.3",
     "jquery": "^2.2.1",
+    "karma": "^1.2.0",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-mocha": "^1.1.1",
+    "karma-mocha-reporter": "^2.1.0",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-webpack": "^1.8.0",
+    "mocha": "^3.0.2",
     "node-sass": "^3.8.0",
     "sass-loader": "^4.0.0",
     "script-loader": "^0.7.0",
