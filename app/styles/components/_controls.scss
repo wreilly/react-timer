@@ -1,0 +1,14 @@
+.controls {
+  display: flex;
+  justify-content: center;
+
+// For both buttons ("Pause/Start" and "Clear")
+  .button {
+    padding: .75rem 3rem;
+  }
+
+// Get first (left-most) button ("Pause/Start")
+  .button:first-child {
+    margin-right: 1.5rem;
+  }
+}

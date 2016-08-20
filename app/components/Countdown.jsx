@@ -1,13 +1,14 @@
 var React = require('react');
 var Clock = require('Clock');
 var CountdownForm = require('CountdownForm');
+var Controls = require('Controls');
 
 // var Countdown = (props) => { // Can't use this anymore!
 var Countdown = React.createClass({
   getInitialState: function () {
     return {
       count: 0,
-      countdownStatus: 'stopped', // stopped, paused, started
+      countdownStatus: 'stopped' // stopped, paused, started
     };
   },
   // React component lifecycle:
@@ -20,6 +21,15 @@ var Countdown = React.createClass({
       switch (this.state.countdownStatus) {
         case 'started':
           this.startTimer();
+          break;
+        case 'stopped':
+          this.setState({count: 0});
+          // NO 'break' here!
+          // proceed to do the things in the 'paused' case, too:
+        case 'paused':
+          // doesn't set it back to 0. Just pause.
+          clearInterval(this.timer);
+          this.timer = undefined;
           break;
         // default:
 
@@ -44,14 +54,26 @@ var Countdown = React.createClass({
       countdownStatus: 'started'
     });
   },
+  handleStatusChange: function (newStatus) {
+    this.setState({ countdownStatus: newStatus});
+  },
   render: function () {
-    var {count} = this.state;
+    var {count, countdownStatus} = this.state;
+    var renderControlArea = () => {
+      if (countdownStatus !== 'stopped') {
+        return <Controls countdownStatus={countdownStatus} onStatusChange={this.handleStatusChange}/>;
+      } else {
+        return <CountdownForm onSetCountdown={this.handleSetCountdown}/>;
+      }
+    };
     return (
       <div>
 {/*        <p>The Countdown component is here on screen.</p>
 */}
         <Clock totalSeconds={count} />
-        <CountdownForm onSetCountdown={this.handleSetCountdown}/>
+        {/* Hmm. Render the FORM only when countdownStatus is STOPPED.
+          Otherwise (for paused, started), render the Controls */}
+          {renderControlArea()}
       </div>
     )
   }
