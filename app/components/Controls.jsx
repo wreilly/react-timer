@@ -29,6 +29,12 @@ var Controls = React.createClass({
           return <button className="button secondary" onClick={this.onStatusChange('paused')}>Pause!</button>
         } else if (countdownStatus === 'paused') {
           return <button className="button primary" onClick={this.onStatusChange('started')}>Start!</button>
+        // } // adding one more ELSE, for TIMER component use.
+        // For TIMER, at beginning, it's stopped. We need to show 'Start!'
+        // Q. Does this break COUNTDOWN ?
+        // A. I think it won't. Countdown.jsx doesn't even get to Controls, if status is 'stopped' - it shows the Form instead.
+        } else if (countdownStatus === 'stopped') {
+          return <button className="button primary" onClick={this.onStatusChange('started')}>Start!</button>
         }
       };
 

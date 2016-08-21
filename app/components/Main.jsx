@@ -3,6 +3,7 @@ var Navigation = require('Navigation');
 
 // In Stateless Functional Components ("Arrow") the 'this' is not re-what-evered.
 // Therefore, you can (must) drop the 'this.' in front of 'this.props.children'
+// WR__ I guess props.children here is: Timer, Countdown. Not positive.
 var Main = (props) => {
     return (
       <div>

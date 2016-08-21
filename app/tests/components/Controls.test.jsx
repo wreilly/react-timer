@@ -10,7 +10,22 @@ describe('Controls', () => {
   it('should exist', () => {
     expect(Controls).toExist();
   });
+/*
+running Karma (npm test) it flags this testing error:
+Controls
+  ✔ should exist
+ERROR: 'Warning: Failed prop type: Required prop `onStatusChange` was not specified in `Controls`.
+  in Controls'
+LOG: 'WR__ 03 Controls.jsx RENDER: this.props.countdownStatus: ', 'started'
+  render
+    ✔ should render Pause!, when started
 
+Rationale for Why This is O.K.: (I think?)
+Here in the test, we are essentially passing in the "change" - of status.
+We do not really need to trigger a method, for this test-driven status change (not a U/I change).
+Does that sound like a correct rationale? I am not so sure. Hmm.
+Or maybe, it's more like: It's hard (not possible?) to get a method here... ( ? ), so we skip it ?
+*/
   describe('render', () => {
     it('should render Pause!, when started', () => {
       var controls = TestUtils.renderIntoDocument(<Controls countdownStatus="started" />); // set as 'started' for this TestUtils
