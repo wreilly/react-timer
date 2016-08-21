@@ -40,6 +40,33 @@ describe('Countdown', () => {
       }, 3001); // just over 3 seconds. should still be 0, not -2 !
     });
 
+    // asynchrounous! got to use "done" < not reserved word. try doneHere = ok!
+    // https://justinbellamy.com/testing-async-code-with-mocha/
+    it('should pause countdown on paused status', (doneHere) => {
+      var countdown = TestUtils.renderIntoDocument(<Countdown />); // no props
+      countdown.handleSetCountdown(3);
+      countdown.handleStatusChange('paused'); // fake/force the status to paused
+
+      setTimeout( () => {
+        expect(countdown.state.count).toBe(3); // still 3 !
+        expect(countdown.state.countdownStatus).toBe('paused');
+        doneHere();
+      }, 1001); // just enough to do at least one cycle ...
+    });
+
+    // asynchrounous, natch
+    it('should reset count, stop countdown on stopped status', (doneHereAgain) => {
+      var countdown = TestUtils.renderIntoDocument(<Countdown />); // no props
+      countdown.handleSetCountdown(3);
+      countdown.handleStatusChange('stopped'); // fake/force the status to stopped
+
+      setTimeout( () => {
+        expect(countdown.state.count).toBe(0); // zeroed out
+        expect(countdown.state.countdownStatus).toBe('stopped');
+        doneHereAgain();
+      }, 1001);
+    });
+
   });
 
 });

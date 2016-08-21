@@ -108,6 +108,7 @@ Countdown.jsx Line 58:
       <div>
 {/*        <p>The Countdown component is here on screen.</p>
 */}
+        <h1 className="page-title">Countdown App</h1>
         <Clock totalSeconds={count} />
         {/* Hmm. Render the FORM only when countdownStatus is STOPPED.
           Otherwise (for paused, started), render the Controls */}
