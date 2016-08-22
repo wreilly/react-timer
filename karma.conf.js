@@ -21,3 +21,12 @@ module.exports = function (config) {
    },
  });
 };
+
+// http://karma-runner.github.io/1.0/config/configuration-file.html
+
+/* Hmm, taken OUT, I DO get console.log to appear in my test output. Hmm.
+client: {
+  captureConsole: true
+}
+*/
+// http://stackoverflow.com/questions/20430689/how-to-capture-console-error-with-karma-unit-test-runner

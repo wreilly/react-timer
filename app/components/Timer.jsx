@@ -28,7 +28,7 @@ var Timer = React.createClass({
         // From very beginning, or from a pause, we've hit START
           // start timer (seconds will start going up 00:00 -> 00:01 ...)
           // "Pause/Start" button needs to now read "Pause"
-          this.startTimer();
+          this.startTimer(); // or handleStart() ...
           break;
           // Note: We don't do the "what the button reads" logic in here. (Frank Goodness). That happens over in Controls.jsx.
         case 'stopped':
@@ -46,10 +46,9 @@ var Timer = React.createClass({
           // tidy up:
           // http://www.w3schools.com/jsref/met_win_clearinterval.asp
           clearInterval(this.timer);
-          this.timer = undefined;
+          this.timer = undefined; // Instructor DID use this line. ok.
           break;
-        default:
-
+        // default: // none
       }
     }
   },
@@ -63,11 +62,13 @@ LINE WAS:       this.setState({ timerCount: newTimerCount});
     // about to unmount (e.g. you navigate away to other page, etc.)
     // Especially when there's an open timer going off ...
     clearInterval(this.timer);
-    this.timer = undefined;
+    this.timer = undefined; // <<< Instructor did NOT use this line. Hmm.
   },
   startTimer: function () {
     var newTimerCount = 0; // initialize why not
     newTimerCount = this.state.timerCount;
+    // Put setInterval onto a named variable,
+    //  so you can clear it, by name, later.
     this.timer = setInterval( () => {
       newTimerCount += 1; // add one second each time through ...
       // No need to validate - it can only go up, no limit
@@ -84,8 +85,7 @@ LINE WAS:       this.setState({ timerCount: newTimerCount});
     return (
       <div>
         <h1 className="page-title">Our Stopwatch (Timer)</h1>
-        <p>The all new Timer.jsx component has rendered, friends.</p>
-        <Clock totalSeconds={this.state.timerCount}/>
+        <Clock totalSeconds={timerCount}/>
         <Controls countdownStatus={countdownStatus} onStatusChange={this.handleStatusChange} />
       </div>
     )

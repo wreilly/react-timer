@@ -28,7 +28,9 @@ Or maybe, it's more like: It's hard (not possible?) to get a method here... ( ? 
 */
   describe('render', () => {
     it('should render Pause!, when started', () => {
-      var controls = TestUtils.renderIntoDocument(<Controls countdownStatus="started" />); // set as 'started' for this TestUtils
+      var controls = TestUtils.renderIntoDocument(<Controls countdownStatus="started" onStatusChange={ () => { } } />); // set as 'started' for this TestUtils; Note also: 'dummy' empty function to satisfy required onStatusChange prop.
+      // https://www.udemy.com/the-complete-react-web-app-developer-course/learn/v4/questions/1396648
+
       var $el = $(ReactDOM.findDOMNode(controls));
 
 // WR__  Worked! //////////////////////////////////
@@ -45,7 +47,7 @@ Or maybe, it's more like: It's hard (not possible?) to get a method here... ( ? 
     });
 
     it('should render Start!, when paused', () => {
-      var controls = TestUtils.renderIntoDocument(<Controls countdownStatus="paused" />); // set as 'paused' for this TestUtils
+      var controls = TestUtils.renderIntoDocument(<Controls countdownStatus="paused" onStatusChange={ () => { } } />); // set as 'paused' for this TestUtils
       var $el = $(ReactDOM.findDOMNode(controls));
 
 // WR__  Worked! //////////////////////////////////

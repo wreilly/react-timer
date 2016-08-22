@@ -9,6 +9,8 @@ var Countdown = require('Countdown');
 describe('Countdown', () => {
 
   it('should exist', () => {
+    // console.log("WR__ Countdown.test.jsx SHOULD EXIST console.log fun ");
+    console.log("WR__ Countdown.test.jsx SHOULD EXIST console.log fun COUNTDOWN: ", Countdown);
     expect(Countdown).toExist();
   });
 

@@ -20,10 +20,17 @@ var Controls = React.createClass({
   render: function () {
       var {countdownStatus} = this.props;
 
-      // pas encore, babe.
-      console.log("WR__ 03 Controls.jsx RENDER: this.props.countdownStatus: ", this.props.countdownStatus);
+      // console.log("WR__ 03 Controls.jsx RENDER: this.props.countdownStatus: ", this.props.countdownStatus);
 
 
+/* Remark viz. Instructor Code: (Lecture 80, 6:40)
+He simply removed the "if ('stopped')" from that (first) else if.
+Hah! Now the logic really only asks, if you're started, we show 'Pause!'.
+Otherwise, we show 'Start!' Done.
+
+My code didn't recognize that, and so I have a NON-DRY second else if.
+Sheers.
+*/
       var renderStartStopButton = ()  =>  {
         if (countdownStatus === 'started') {
           return <button className="button secondary" onClick={this.onStatusChange('paused')}>Pause!</button>

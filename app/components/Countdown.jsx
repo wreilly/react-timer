@@ -15,8 +15,8 @@ var Countdown = React.createClass({
   // after update to Props or to State
   componentDidUpdate: function (prevProps, prevState) {
     if (this.state.countdownStatus !== prevState.countdownStatus) {
-      console.log("WR__ 01 componentDidUpdate time! prevState.countdownStatus: ", prevState.countdownStatus);
-      console.log("WR__ ! 02 this.state.countdownStatus: ", this.state.countdownStatus);
+      // console.log("WR__ 01 componentDidUpdate time! prevState.countdownStatus: ", prevState.countdownStatus);
+      // console.log("WR__ ! 02 this.state.countdownStatus: ", this.state.countdownStatus);
 
       // CHANGE!
       switch (this.state.countdownStatus) {
