@@ -100,8 +100,7 @@ describe('Timer', () => {
     timer.state.timerCount++;
     timer.state.timerCount++; // 3 seconds "go by..."
     console.log("WR__ 101 FAKED. Is It 3? (4?) timer 'stopped' status: timer.state.timerCount: ", timer.state.timerCount);
-    expect(timer.state.timerCount).toBe(3); // FAKED it! // It is 0. Not 4.
-
+    expect(timer.state.timerCount).toBe(3); // FAKED it! // 
     timer.handleStatusChange('stopped');
 
     setTimeout( () => {
