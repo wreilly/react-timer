@@ -6,6 +6,17 @@ var CountdownForm = React.createClass({
     event.preventDefault();
     var strSeconds = this.refs.seconds.value;
 
+// Using jQuery
+    console.log('jQuery tells us the count of "input" elements is: ', $('input').length);
+    // Creates ERROR in Karma testing, though!
+    //  npm test: "Uncaught ReferenceError: jQuery is not defined"
+    // We added jQuery (and Foundation) references to Karma config (like we had them in webpack config). ok.
+    // Now the test runs.
+    // Interesting to note: in the test, jQuery finds 0, not 1
+    //   'input' element. No DOM available I guess ... Sheers.
+
+
+
     // regex for all digits:
     if (strSeconds.match(/^[0-9]*$/)) {
       this.refs.seconds.value = ''; // clear it ... :)

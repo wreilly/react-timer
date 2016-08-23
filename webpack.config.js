@@ -1,6 +1,7 @@
 // This file: /webpack.config.js (in root)
 
 var webpack = require('webpack');
+var path = require('path');
 
 module.exports = {
 //  entry : './public/app.js',
@@ -52,6 +53,11 @@ module.exports = {
         test : /\.jsx?$/, // regex! ends in '.jsx'
         exclude : /(node_modules|bower_components)/
       }
+    ]
+  },
+  sassLoader: {
+    includePaths: [
+      path.resolve(__dirname, './node_modules/foundation-sites/scss')
     ]
   },
   devtool : 'cheap-module-eval-source-map'
