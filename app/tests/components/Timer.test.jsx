@@ -57,9 +57,12 @@ describe('Timer', () => {
 
   it('should ... pause timer, at upon "paused" status', (wr__done) => {
     var timer = TestUtils.renderIntoDocument(<Timer />);
-    timer.handleStatusChange('paused');
     // arbitrarily start at 10 for the pause
-    timer.state.timerCount = 10;
+    // timer.state.timerCount = 10; // <<< NOT SO GOOD
+    // Ah hah. Better: use setState() :
+    timer.setState({ timerCount: 10 });
+    timer.handleStatusChange('started');
+    timer.handleStatusChange('paused');
 
     setTimeout( () => {
       expect(timer.state.countdownStatus).toBe('paused');
@@ -68,14 +71,16 @@ describe('Timer', () => {
     }, 1001); // just over one second
   });
 
-  it('should ... stop and clear timer, at upon "stopped" status ("Clear" button)', (wr__done) => {
+  it('should ... stop and clear timer count, at upon "stopped" status ("Clear" button)', (wr__done) => {
 
     var timer = TestUtils.renderIntoDocument(<Timer />);
 
-    timer.state.timerCount = 0;
-    console.log("WR__ 98 Is It 0? timer 'stopped' status: timer.state.timerCount: ", timer.state.timerCount); // YES. 0.
+    timer.setState({ timerCount: 11 }); // 11 for this test to begin ...
 
     timer.handleStatusChange('started');
+    // timer.handleStatusChange('stopped'); // We'll 'stop' it below ...
+
+    console.log("WR__ 98 Is It 0? timer 'stopped' status: timer.state.timerCount: ", timer.state.timerCount); // YES. 0.
 
 /* ************************
    HMM - I REALLY DON'T KNOW HOW TO MAKE THIS WORK
@@ -96,16 +101,39 @@ describe('Timer', () => {
 */
 
     // Just TOTALLY FAKING it:
-    timer.state.timerCount++;
-    timer.state.timerCount++;
-    timer.state.timerCount++; // 3 seconds "go by..."
-    console.log("WR__ 101 FAKED. Is It 3? (4?) timer 'stopped' status: timer.state.timerCount: ", timer.state.timerCount);
-    expect(timer.state.timerCount).toBe(3); // FAKED it! // 
+// Reach OVER into the imported object of TIMER to modify TIMER.state to get the actual variable for timerCount!
+// Interesting: "++" does not work,
+//              but " + 1" does. Huh.
+// NOPE:   timer.setState({ timerCount: timer.state.timerCount++ });
+    timer.setState({ timerCount: timer.state.timerCount + 1 });
+    timer.setState({ timerCount: timer.state.timerCount + 1 });
+    timer.setState({ timerCount: timer.state.timerCount + 1 });
+
+// Hmm. Did NOT Work. ? Reach into this.state to get the actual variable for timerCount! Then you can "++" it.
+//  TypeError: Cannot read property 'state' of undefined
+    // timer.setState({ timerCount: this.state.timerCount++ });
+    // timer.setState({ timerCount: this.state.timerCount++ });
+    // timer.setState({ timerCount: this.state.timerCount++ });
+
+// Did NOT Work. Can't get "timerCount" (a mere object attribute) to "++" itself. It is not a variable!
+// ReferenceError: timerCount is not defined
+    // timer.setState({ timerCount: timerCount++ });
+    // timer.setState({ timerCount: timerCount++ });
+    // timer.setState({ timerCount: timerCount++ });
+
+// Worked, but not using setState, so, Not So Good! :
+    // timer.state.timerCount++;
+    // timer.state.timerCount++;
+    // timer.state.timerCount++; // 3 seconds "go by..."
+
+    console.log("WR__ 102 FAKED. Is It 14? : timer.state.timerCount: ", timer.state.timerCount);
+    expect(timer.state.timerCount).toBe(14); // FAKED it! //
+
     timer.handleStatusChange('stopped');
 
     setTimeout( () => {
       expect(timer.state.countdownStatus).toBe('stopped');
-      expect(timer.state.timerCount).toBe(0); // Damn! When you STOP, you go to ZERO.
+      expect(timer.state.timerCount).toBe(0);
       wr__done();
     }, 1001); // just over one second
   });
